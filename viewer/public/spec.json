@@ -1,0 +1,160 @@
+{
+  "arazzo": "1.0.1",
+  "info": {
+    "title": "Warp API",
+    "version": "1.0.0"
+  },
+  "sourceDescriptions": [
+    {
+      "name": "warp",
+      "type": "openapi",
+      "url": "https://warp-single-sidebar.redocly.app/_spec/apis/index.yaml"
+    }
+  ],
+  "components": {
+    "failureActions": {
+      "EndOnAuthFailure": {
+        "name": "EndOnAuthFailure",
+        "type": "end"
+      }
+    }
+  },
+  "workflows": [
+    {
+      "workflowId": "post-timelines-workflow",
+      "steps": [
+        {
+          "stepId": "post-timelines-step",
+          "operationId": "$sourceDescriptions.warp.createTimeline",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 201"
+            }
+          ],
+          "onFailure": [
+            {
+              "reference": "$components.failureActions.EndOnAuthFailure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "get-timelines-workflow",
+      "steps": [
+        {
+          "stepId": "get-timelines-step",
+          "operationId": "$sourceDescriptions.warp.listTimelines",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ],
+          "onFailure": [
+            {
+              "reference": "$components.failureActions.EndOnAuthFailure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "delete-timeline-{timeline_id}-workflow",
+      "steps": [
+        {
+          "stepId": "delete-timeline-{timeline_id}-step",
+          "operationId": "$sourceDescriptions.warp.deleteTimeline",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 204"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "post-travels-workflow",
+      "steps": [
+        {
+          "stepId": "post-travels-step",
+          "operationId": "$sourceDescriptions.warp.timeTravel",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "post-items-workflow",
+      "steps": [
+        {
+          "stepId": "post-items-step",
+          "operationId": "$sourceDescriptions.warp.registerItem",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "post-events-workflow",
+      "steps": [
+        {
+          "stepId": "post-events-step",
+          "operationId": "$sourceDescriptions.warp.manipulateEvent",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "post-anchors-workflow",
+      "steps": [
+        {
+          "stepId": "post-anchors-step",
+          "operationId": "$sourceDescriptions.warp.setAnchor",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 201"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "post-paradox-checks-workflow",
+      "steps": [
+        {
+          "stepId": "post-paradox-checks-step",
+          "operationId": "$sourceDescriptions.warp.checkParadox",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "workflowId": "get-monitor-timeline-workflow",
+      "steps": [
+        {
+          "stepId": "get-monitor-timeline-step",
+          "operationId": "$sourceDescriptions.warp.monitorTimeline",
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

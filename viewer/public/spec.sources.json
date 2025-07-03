@@ -1,0 +1,337 @@
+{
+  "warp": {
+    "listTimelines": {
+      "method": "GET",
+      "path": "/timelines",
+      "op": {
+        "summary": "List all timelines",
+        "operationId": "listTimelines",
+        "tags": [
+          "Timelines"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of all timelines",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Timeline"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "createTimeline": {
+      "method": "POST",
+      "path": "/timelines",
+      "op": {
+        "summary": "Create a new timeline",
+        "operationId": "createTimeline",
+        "tags": [
+          "Timelines"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Timeline"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The timeline was created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Timeline"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "deleteTimeline": {
+      "method": "DELETE",
+      "path": "/timeline/{timeline_id}",
+      "op": {
+        "summary": "Delete a timeline",
+        "operationId": "deleteTimeline",
+        "tags": [
+          "Timelines"
+        ],
+        "parameters": [
+          {
+            "name": "timeline_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the timeline to delete"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Timeline deleted successfully"
+          }
+        }
+      }
+    },
+    "timeTravel": {
+      "method": "POST",
+      "path": "/travels",
+      "op": {
+        "summary": "Travel across time",
+        "operationId": "timeTravel",
+        "description": "Travel to a timeline or to a temporal anchor to return.",
+        "tags": [
+          "Travel"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TimeTravel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Time travel successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimeTravel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Animate objects transformed into cosmic vapor",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "registerItem": {
+      "method": "POST",
+      "path": "/items",
+      "op": {
+        "summary": "Register an item",
+        "operationId": "registerItem",
+        "tags": [
+          "Items"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Item"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item registered successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Item already registered"
+          }
+        }
+      }
+    },
+    "manipulateEvent": {
+      "method": "POST",
+      "path": "/events",
+      "op": {
+        "summary": "Manipulate an event in a timeline",
+        "operationId": "manipulateEvent",
+        "tags": [
+          "Events"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManipulateEventRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The event was manipulated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventManipulationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Event cannot be manipulated",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "setAnchor": {
+      "method": "POST",
+      "path": "/anchors",
+      "op": {
+        "summary": "Set a temporal anchor",
+        "description": "Temporal anchors are used to return to the present time at the end of time travel.",
+        "operationId": "setAnchor",
+        "tags": [
+          "Anchors"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Anchor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The temporal anchor was set successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Anchor"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Anchor already exists"
+          }
+        }
+      }
+    },
+    "checkParadox": {
+      "method": "POST",
+      "path": "/paradox-checks",
+      "op": {
+        "summary": "Check for paradoxes in a timeline",
+        "operationId": "checkParadox",
+        "tags": [
+          "Paradoxes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParadoxCheckRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paradox check completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParadoxCheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unable to check for paradoxes",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "monitorTimeline": {
+      "method": "GET",
+      "path": "/monitor-timeline",
+      "op": {
+        "summary": "Monitor a timeline for anomalies",
+        "operationId": "monitorTimeline",
+        "tags": [
+          "Monitoring"
+        ],
+        "parameters": [
+          {
+            "name": "timeline_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The ID of the timeline to monitor"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Timeline monitored successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TimelineMonitoringResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cannot monitor timeline",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

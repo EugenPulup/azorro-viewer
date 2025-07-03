@@ -1,0 +1,6 @@
+stepId: post-timelines-step
+operationId: $sourceDescriptions.warp.createTimeline
+successCriteria:
+  - condition: $statusCode == 201
+onFailure:
+  - reference: "$components.failureActions.EndOnAuthFailure"
